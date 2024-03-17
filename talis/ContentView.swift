@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     // Grab our users location
     @StateObject var locManager = LocationManager()
+    @State var priceOptions: [String] = ["Near"]
     var body: some View {
         VStack {
             switch locManager.locationManager.authorizationStatus{
@@ -24,6 +25,7 @@ struct ContentView: View {
             }
             Spacer()
             RollButtonView()
+            RotateButtonView(options: priceOptions)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.purple)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4389BEB2BA294AA0092C986 /* RotateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4389BEA2BA294AA0092C986 /* RotateButtonView.swift */; };
 		A462D4332B9E7D2C0085C7F0 /* talisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A462D4322B9E7D2C0085C7F0 /* talisApp.swift */; };
 		A462D4352B9E7D2C0085C7F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A462D4342B9E7D2C0085C7F0 /* ContentView.swift */; };
 		A462D4372B9E7D2D0085C7F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A462D4362B9E7D2D0085C7F0 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A4389BEA2BA294AA0092C986 /* RotateButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateButtonView.swift; sourceTree = "<group>"; };
 		A462D42F2B9E7D2C0085C7F0 /* talis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = talis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A462D4322B9E7D2C0085C7F0 /* talisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = talisApp.swift; sourceTree = "<group>"; };
 		A462D4342B9E7D2C0085C7F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				A462D4402B9E7D540085C7F0 /* LocationManager.swift */,
 				A462D4362B9E7D2D0085C7F0 /* Assets.xcassets */,
 				A462D4382B9E7D2D0085C7F0 /* Preview Content */,
+				A4389BEA2BA294AA0092C986 /* RotateButtonView.swift */,
 			);
 			path = talis;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 				A462D4352B9E7D2C0085C7F0 /* ContentView.swift in Sources */,
 				A462D4332B9E7D2C0085C7F0 /* talisApp.swift in Sources */,
 				A462D4412B9E7D540085C7F0 /* LocationManager.swift in Sources */,
+				A4389BEB2BA294AA0092C986 /* RotateButtonView.swift in Sources */,
 				A462D4432B9E7D720085C7F0 /* RollButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
