@@ -4,6 +4,21 @@ package mapper
 import (
 )
 
+// Below are valid uses of the Rule struct:
+// ----------------------------------------
+// { "" , "" , param_name , hardcoded_value , "" }
+//     set param value to hardcoded
+// { "" , "" , param_name , hardcoded_value , separator_value }
+//     append hardcoded to param value with separator between
+// { arg_name, "" , param_name , "" , ""}
+//     set param value to arg value
+// { arg_name, "" , param_name , "", separator_value }
+//     append arg value to param value with separator between
+// { arg_name, target_value , param_name , hardcoded_value, "" }
+//     set param value to hardcoded if arg value matches target value
+// { arg_name, target_value , param_name , hardcoded_value, separator_value }
+//     append hardcoded to param value with separator between if
+//     arg value matches target value
 type Rule struct {
 	ArgKey string
 	ArgVal string
@@ -12,64 +27,32 @@ type Rule struct {
 	App    string
 }
 
-func validRule(rul Rule) bool {
-	// { "" , "" , param , hardcoded , "" }
-	// set param value to hardcoded
-	if rul.ArgKey == "" && rul.ArgVal == "" &&
-		rul.QryKey != "" && rul.QryVal != "" &&rul.App == "" {
-		return true
-	}
-	// { "" , "" , param , hardcoded , separator }
-	// append hardcoded to param value with separator between
-	if rul.ArgKey == "" && rul.ArgVal == "" &&
-		rul.QryKey != "" && rul.QryVal != "" &&rul.App != "" {
-		return true
-	}
-	// { arg, "" , param , "" , ""}
-	// set param value to arg value
-	if rul.ArgKey != "" && rul.ArgVal == "" &&
-		rul.QryKey != "" && rul.QryVal == "" &&rul.App == "" {
-		return true
-	}
-	// { arg, "" , param , "", separator }
-	// append arg value to param value with separator between
-	if rul.ArgKey != "" && rul.ArgVal == "" &&
-		rul.QryKey != "" && rul.QryVal == "" &&rul.App != "" {
-		return true
-	}
-	// { arg, target , param , hardcoded, "" }
-	// set param value to hardcoded if arg value matches target value
-	if rul.ArgKey != "" && rul.ArgVal != "" &&
-		rul.QryKey != "" && rul.QryVal != "" &&rul.App == "" {
-		return true
-	}
-	// { arg, target , param , hardcoded, separator }
-	// append hardcoded to param value with separator between if
-	// arg value matches target value
-	if rul.ArgKey != "" && rul.ArgVal != "" &&
-		rul.QryKey != "" && rul.QryVal != "" &&rul.App != "" {
-		return true
-	}
-	return false
-}
 
-func FormQuery(rul []Rule, arg map[string]string) map[string]string {
+type Rules []Rule
+
+
+func (r Rules) Parameters(arg map[string]string) map[string]string {
 	qry := map[string]string{}
-	for _, r := range rul {
-		if !validRule(r) {
-			panic("invalid mapper Rule")
+	for _, i := range r {
+		if i.QryKey == "" {
+			panic("invalid mapper rule: missing param key: "+
+			"{"+i.ArgKey+","+i.ArgVal+","+i.QryKey+","+i.QryVal+","+i.App+"}")
 		}
-		if r.ArgVal != "" && arg[r.ArgKey] != r.ArgVal {
+		if (i.ArgKey == "" && i.QryVal == "")  {
+			panic("invalid mapper rule: missing param value: "+
+			"{"+i.ArgKey+","+i.ArgVal+","+i.QryKey+","+i.QryVal+","+i.App+"}")
+		}
+		if i.ArgVal != "" && arg[i.ArgKey] != i.ArgVal {
 			continue
 		}
-                val := r.QryVal
+                val := i.QryVal
 		if val == "" {
-			val = arg[r.ArgKey]
+			val = arg[i.ArgKey]
 		}
-		if _, ok := qry[r.QryKey]; ok && r.App != "" {
-			val = qry[r.QryKey] + r.App + val
+		if _, ok := qry[i.QryKey]; ok && i.App != "" {
+			val = qry[i.QryKey] + i.App + val
 		}
-		qry[r.QryKey] = val
+		qry[i.QryKey] = val
 	}
 	return qry
 }
