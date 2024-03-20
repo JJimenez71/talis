@@ -30,37 +30,39 @@ func validFloat(flt string) bool {
 	return err == nil
 }
 
+func validParameters(arg map[string]string) string {
+	if !validDigit(arg["distance"]) {
+		return "Bad Request: query parameter \"distance\"."
+	}
+	if !validDigit(arg["expense"]) {
+		return "Bad Request: query parameter \"expense\"."
+	}
+	if !validFloat(arg["latitude"]) {
+		return "Bad Request: query parameter \"latitude\"."
+	}
+	if !validFloat(arg["longitude"]) {
+		return "Bad Request: query parameter \"longitude\"."
+	}
+	return ""
+}
 
 func (a APIs) Fetch(res http.ResponseWriter, req *http.Request) {
 	if req.Method != "GET" {
 		http.Error(res, "Not Found", 404)
 		return
 	}
-	arg := map[string]string{}
 	qry := req.URL.Query()
+	arg := map[string]string{}
 	arg["distance"] = qry.Get("distance")
-	if !validDigit(arg["distance"]) {
-		http.Error(res, "Bad Request: query parameter \"distance\".", 400)
-		return
-	}
 	arg["expense"] = qry.Get("expense")
-	if !validDigit(arg["expense"]) {
-		http.Error(res, "Bad Request: query parameter \"expense\".", 400)
-		return
-	}
 	arg["latitude"] = qry.Get("latitude")
-	if !validFloat(arg["latitude"]) {
-		http.Error(res, "Bad Request: query parameter \"latitude\".", 400)
-		return
-	}
 	arg["longitude"] = qry.Get("longitude")
-	if !validFloat(arg["longitude"]) {
-		http.Error(res, "Bad Request: query parameter \"longitude\".", 400)
+	if err := validParameters(arg); err != "" {
+		http.Error(res, err, 400)
 		return
 	}
 	api := a[rand.Intn(len(a))]
 	par := api.QryRul.Parameters(arg)
-
 
 
 	out := api.Hos + "/" + api.Pat + "?"
