@@ -10,9 +10,13 @@ import SwiftUI
 struct ContentView: View {
     // Grab our users location
     @StateObject var locManager = LocationManager()
-    @State var priceOptions: [String] = ["Near"]
+    
+    // Options for filter buttons
+    @State var distanceOptions: [String] = ["Near", "Further","Far", "Farthest"]
+    @State var priceOptions: [String] = ["$", "$$", "$$$", "$$$$"]
+    
     var body: some View {
-        VStack {
+        Group {
             switch locManager.locationManager.authorizationStatus{
             case .authorizedWhenInUse:
                 Text("Authorized")
@@ -24,11 +28,17 @@ struct ContentView: View {
                 Text("Waddup")
             }
             Spacer()
-            RollButtonView()
-            RotateButtonView(options: priceOptions)
+            VStack{
+                RollButtonView()
+                HStack{
+                    RotateButtonView(options: $distanceOptions)
+                    RotateButtonView(options: $priceOptions)
+                }
+            }
+            .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.purple)
+        .background(Color.gray)
     }
 }
 

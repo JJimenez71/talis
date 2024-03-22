@@ -25,6 +25,7 @@
 		A462D4392B9E7D2D0085C7F0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A462D4402B9E7D540085C7F0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		A462D4422B9E7D720085C7F0 /* RollButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollButtonView.swift; sourceTree = "<group>"; };
+		A4DC1F012BA68C96001FAE43 /* salt_lake_city_simulation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = salt_lake_city_simulation.gpx; path = ../../Downloads/salt_lake_city_simulation.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +42,7 @@
 		A462D4262B9E7D2C0085C7F0 = {
 			isa = PBXGroup;
 			children = (
+				A4DC1F012BA68C96001FAE43 /* salt_lake_city_simulation.gpx */,
 				A462D4312B9E7D2C0085C7F0 /* talis */,
 				A462D4302B9E7D2C0085C7F0 /* Products */,
 			);
@@ -287,6 +289,7 @@
 				DEVELOPMENT_TEAM = 3X225285TY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Talis needs location services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -316,6 +319,7 @@
 				DEVELOPMENT_TEAM = 3X225285TY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Talis needs location services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
