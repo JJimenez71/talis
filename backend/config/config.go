@@ -23,15 +23,15 @@ func Load(pat string) File {
 		}
 		idx := strings.Index(l, "=")
 		if idx == -1 {
-			panic("invalid key value line: \""+l+"\"")
+			panic("invalid key-value: \""+l+"\"")
 		}
 		key := strings.TrimSpace(l[:idx])
 		val := strings.TrimSpace(l[idx+1:])
 		if key == "" {
-			panic("invalid key value line: missing key: \""+l+"\"")
+			panic("invalid key-value: missing key: \""+l+"\"")
 		}
 		if val == "" {
-			panic("invalid key value line: missing value: \""+l+"\"")
+			panic("invalid key-value: missing value: \""+l+"\"")
 		}
 		fil[key] = val
 	}

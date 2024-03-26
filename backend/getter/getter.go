@@ -1,8 +1,5 @@
-package mapper
+package getter
 
-
-import (
-)
 
 // Below are valid uses of the Rule struct:
 // ----------------------------------------
@@ -31,21 +28,28 @@ type Rule struct {
 type Rules []Rule
 
 
-func (r Rules) Parameters(arg map[string]string) map[string]string {
+type Request struct {
+	Hos string
+	Pat string
+	Rul Rules
+}
+
+
+func (r Rules) parameters(arg map[string]string) map[string]string {
 	qry := map[string]string{}
 	for _, i := range r {
 		if i.QryKey == "" {
-			panic("invalid mapper rule: missing param key: "+
+			panic("invalid rule: missing param key: "+
 			"{"+i.ArgKey+","+i.ArgVal+","+i.QryKey+","+i.QryVal+","+i.App+"}")
 		}
 		if (i.ArgKey == "" && i.QryVal == "")  {
-			panic("invalid mapper rule: missing param value: "+
+			panic("invalid rule: missing param value: "+
 			"{"+i.ArgKey+","+i.ArgVal+","+i.QryKey+","+i.QryVal+","+i.App+"}")
 		}
 		if i.ArgVal != "" && arg[i.ArgKey] != i.ArgVal {
 			continue
 		}
-                val := i.QryVal
+		val := i.QryVal
 		if val == "" {
 			val = arg[i.ArgKey]
 		}
@@ -56,3 +60,15 @@ func (r Rules) Parameters(arg map[string]string) map[string]string {
 	}
 	return qry
 }
+
+
+func (r Request) Fetch(arg map[string]string) string {
+	req := r.Hos + "/" + r.Pat + "?"
+	for key, val := range r.Rul.parameters(arg) {
+                req += key + "=" + val + "&"
+        }
+	return req[:len(req)-1] + "\n"
+}
+
+
+

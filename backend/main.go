@@ -24,7 +24,6 @@ func getRoot(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 	io.WriteString(res, "Try out our /roll GET endpoint!\n")
-	fmt.Printf("Get /\n")
 }
 
 

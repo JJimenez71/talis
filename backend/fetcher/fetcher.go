@@ -6,14 +6,12 @@ import (
 	"strconv"
 	"net/http"
 	"math/rand"
-	"backend/mapper"
+	"backend/getter"
 )
 
 
 type API struct {
-	Hos string
-	Pat string
-	QryRul mapper.Rules
+	Get getter.Request
 }
 
 
@@ -62,12 +60,5 @@ func (a APIs) Fetch(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 	api := a[rand.Intn(len(a))]
-	par := api.QryRul.Parameters(arg)
-
-
-	out := api.Hos + "/" + api.Pat + "?"
-	for key, val := range par {
-		out += key + "=" + val + "&"
-	}
-	io.WriteString(res, out[:len(out)-1] + "\n")
+	io.WriteString(res, api.Get.Fetch(arg))
 }
