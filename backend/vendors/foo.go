@@ -1,18 +1,17 @@
 package vendors
 
 import (
-	"backend/config"
 	"backend/getter"
 	"backend/fetcher"
 )
 
-func FooAPI(cfg config.File) fetcher.API {
+func FooAPI(cfg map[string]string) fetcher.API {
 	return fetcher.API {
 		Get: getter.Request {
 			Hos: "foo.com",
 			Pat: "bar",
 			Rul: getter.Rules{
-	                        {"", "", "apiKey", cfg.Value("FOO_API_KEY"), ""},
+	                        {"", "", "apiKey", cfg["FOO_API_KEY"], ""},
 	                        {"latitude", "", "coords", "", ","},
 	                        {"longitude", "", "coords", "", ","},
 	                        {"", "", "range", "100", ""},

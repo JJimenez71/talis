@@ -9,7 +9,6 @@ import (
 	"backend/getter"
 )
 
-
 type API struct {
 	Get getter.Request
 }

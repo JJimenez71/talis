@@ -7,11 +7,8 @@ import (
 )
 
 
-type File map[string]string
-
-
-func Load(pat string) File {
-	fil := File{}
+func Load(pat string) map[string]string {
+	fil := map[string]string{}
 	txt, err := ioutil.ReadFile(pat)
 	if err != nil {
 		panic("cannot read: \""+pat+"\"")
@@ -36,12 +33,4 @@ func Load(pat string) File {
 		fil[key] = val
 	}
 	return fil
-}
-
-
-func (f File) Value(key string) string {
-	if val, ok := f[key]; ok {
-		return val
-	}
-	return ""
 }
