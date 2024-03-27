@@ -1,12 +1,19 @@
 package vendors
 
 import (
-	"backend/getter"
+	"fmt"
 	"backend/fetcher"
+	"backend/getter"
 )
 
-func FooAPI(cfg map[string]string) fetcher.API {
-	return fetcher.API {
+
+type Foo struct {
+	Get getter.Request
+}
+
+
+func FooAPI(cfg map[string]string) Foo {
+	return Foo {
 		Get: getter.Request {
 			Hos: "foo.com",
 			Pat: "bar",
@@ -29,5 +36,12 @@ func FooAPI(cfg map[string]string) fetcher.API {
 	                },
 		},
         }
+}
+
+
+func (f Foo) Fetch(arg map[string]string) fetcher.Activities {
+	fmt.Println(f.Get.Fetch(arg))
+	return fetcher.Activities {
+	}
 }
 

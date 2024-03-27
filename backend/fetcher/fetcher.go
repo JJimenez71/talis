@@ -2,15 +2,30 @@ package fetcher
 
 
 import (
-	"io"
 	"strconv"
 	"net/http"
 	"math/rand"
-	"backend/getter"
+	"encoding/json"
 )
 
-type API struct {
-	Get getter.Request
+
+type Activity struct {
+	Name		string
+	Address		string
+	Hours		[]string
+	Phone		string
+	Website		string
+	Rating		string
+	Price		string
+	Description	string
+}
+
+
+type Activities []Activity
+
+
+type API interface {
+	Fetch(arg map[string]string) Activities
 }
 
 
@@ -58,6 +73,17 @@ func (a APIs) Fetch(res http.ResponseWriter, req *http.Request) {
 		http.Error(res, err, 400)
 		return
 	}
-	api := a[rand.Intn(len(a))]
-	io.WriteString(res, api.Get.Fetch(arg))
+	for i := 0; i < 4; i++ {
+		api := a[rand.Intn(len(a))]
+		ret := api.Fetch(arg)
+		if len(ret) == 0 {
+			continue
+		}
+		act := ret[rand.Intn(len(ret))]
+		if jsn, err := json.Marshal(act); err == nil {
+			res.Write(jsn)
+			return
+		}
+	}
+	http.Error(res, "Internal Server Error", 500)
 }

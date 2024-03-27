@@ -35,7 +35,7 @@ type Request struct {
 }
 
 
-func (r Rules) parameters(arg map[string]string) map[string]string {
+func (r Rules) Parameters(arg map[string]string) map[string]string {
 	qry := map[string]string{}
 	for _, i := range r {
 		if i.QryKey == "" {
@@ -64,7 +64,7 @@ func (r Rules) parameters(arg map[string]string) map[string]string {
 
 func (r Request) Fetch(arg map[string]string) string {
 	req := r.Hos + "/" + r.Pat + "?"
-	for key, val := range r.Rul.parameters(arg) {
+	for key, val := range r.Rul.Parameters(arg) {
                 req += key + "=" + val + "&"
         }
 	return req[:len(req)-1] + "\n"
