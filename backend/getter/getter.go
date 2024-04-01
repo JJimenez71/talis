@@ -62,13 +62,19 @@ func (r Rules) Parameters(arg map[string]string) map[string]string {
 }
 
 
-func (r Request) Fetch(arg map[string]string) string {
-	req := r.Hos + "/" + r.Pat + "?"
-	for key, val := range r.Rul.Parameters(arg) {
-                req += key + "=" + val + "&"
-        }
-	return req[:len(req)-1] + "\n"
+func (r Request) Fetch(arg map[string]string) []byte {
+	par := url.Values{}
+	for k, v := range r.Rul.Parameters(arg) {
+		par.Add(k, v)
+	}
+	res, errRes := http.Get(r.Hos + r.Pat + par.Encode())
+	if errRes != nil {
+		return nil
+	}
+	defer res.Body.Close()
+	ret, errRet := ioutil.ReadAll(res.Body)
+        if errRet != nil {
+		return nil
+	}
+	return ret
 }
-
-
-
