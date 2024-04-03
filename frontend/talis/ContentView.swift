@@ -12,7 +12,7 @@ struct ContentView: View {
     @StateObject var locManager = LocationManager()
     
     // Options for filter buttons
-    @State var distanceOptions: [String] = ["Near", "Further","Far", "Farthest"]
+    @State var distanceOptions: [String] = ["\u{1F9CD}\u{1F3DF}", "\u{1F9CD}   \u{1F3DF}","\u{1F9CD}        \u{1F3DF}"]
     @State var priceOptions: [String] = ["$", "$$", "$$$", "$$$$"]
     
     var body: some View {
