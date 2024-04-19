@@ -1,5 +1,13 @@
 package getter
 
+import (
+	"fmt"
+	"net/url"
+	"net/http"
+	"io/ioutil"
+)
+
+
 
 // Below are valid uses of the Rule struct:
 // ----------------------------------------
@@ -63,6 +71,12 @@ func (r Rules) Parameters(arg map[string]string) map[string]string {
 
 
 func (r Request) Fetch(arg map[string]string) []byte {
+	log := "  " + r.Hos + "/" + r.Pat + "?"
+	for k, v := range r.Rul.Parameters(arg) {
+		log += k + "=" + v + "&"
+	}
+	fmt.Println(log[:len(log)-1])
+
 	par := url.Values{}
 	for k, v := range r.Rul.Parameters(arg) {
 		par.Add(k, v)

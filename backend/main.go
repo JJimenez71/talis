@@ -23,6 +23,7 @@ func getRoot(res http.ResponseWriter, req *http.Request) {
 		http.Error(res, "Not Found", 404)
 		return
 	}
+	fmt.Println("GET /")
 	io.WriteString(res, "Try out our /roll GET endpoint!\n")
 }
 

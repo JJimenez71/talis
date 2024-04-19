@@ -2,6 +2,7 @@ package fetcher
 
 
 import (
+	"fmt"
 	"strconv"
 	"net/http"
 	"math/rand"
@@ -73,6 +74,7 @@ func (a APIs) Fetch(res http.ResponseWriter, req *http.Request) {
 		http.Error(res, err, 400)
 		return
 	}
+	fmt.Println("GET /roll:")
 	for i := 0; i < 4; i++ {
 		api := a[rand.Intn(len(a))]
 		ret := api.Fetch(arg)
