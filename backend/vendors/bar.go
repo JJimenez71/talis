@@ -1,7 +1,6 @@
 package vendors
 
 import (
-	"fmt"
 	"backend/fetcher"
 	"backend/getter"
 )
@@ -35,7 +34,7 @@ func BarAPI(cfg map[string]string) Bar {
 
 
 func (b Bar) Fetch(arg map[string]string) fetcher.Activities {
-	fmt.Println(b.Get.Fetch(arg))
+	b.Get.Fetch(arg)
 	return fetcher.Activities {
 		fetcher.Activity {
 			Name: "Bar A",
