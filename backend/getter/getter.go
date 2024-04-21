@@ -1,5 +1,6 @@
 package getter
 
+
 import (
 	"fmt"
 	"net/url"
@@ -8,83 +9,96 @@ import (
 )
 
 
-
-// Below are valid uses of the Rule struct:
-// ----------------------------------------
-// { "" , "" , param_name , hardcoded_value , "" }
-//     set param value to hardcoded
-// { "" , "" , param_name , hardcoded_value , separator_value }
-//     append hardcoded to param value with separator between
-// { arg_name, "" , param_name , "" , ""}
-//     set param value to arg value
-// { arg_name, "" , param_name , "", separator_value }
-//     append arg value to param value with separator between
-// { arg_name, target_value , param_name , hardcoded_value, "" }
-//     set param value to hardcoded if arg value matches target value
-// { arg_name, target_value , param_name , hardcoded_value, separator_value }
-//     append hardcoded to param value with separator between if
-//     arg value matches target value
 type Rule struct {
-	ArgKey string
-	ArgVal string
-	QryKey string
-	QryVal string
-	App    string
+	Arg string
+	Equ string
+	Hed string
+	Qry string
+	Val string
+	App string
 }
 
 
-type Rules []Rule
+type Mapping []Rule
 
 
 type Request struct {
 	Hos string
 	Pat string
-	Rul Rules
+	Map Mapping
 }
 
 
-func (r Rules) Parameters(arg map[string]string) map[string]string {
-	qry := map[string]string{}
-	for _, i := range r {
-		if i.QryKey == "" {
-			panic("invalid rule: missing param key: "+
-			"{"+i.ArgKey+","+i.ArgVal+","+i.QryKey+","+i.QryVal+","+i.App+"}")
-		}
-		if (i.ArgKey == "" && i.QryVal == "")  {
-			panic("invalid rule: missing param value: "+
-			"{"+i.ArgKey+","+i.ArgVal+","+i.QryKey+","+i.QryVal+","+i.App+"}")
-		}
-		if i.ArgVal != "" && arg[i.ArgKey] != i.ArgVal {
+func (m Mapping) headers(arg map[string]string) map[string]string {
+	hed := map[string]string{}
+	for _, r := range m {
+		if r.Hed == "" {
 			continue
 		}
-		val := i.QryVal
+		if r.Equ != "" && arg[r.Arg] != r.Equ {
+			continue
+		}
+		val := r.Val
 		if val == "" {
-			val = arg[i.ArgKey]
+			val = arg[r.Arg]
 		}
-		if _, ok := qry[i.QryKey]; ok && i.App != "" {
-			val = qry[i.QryKey] + i.App + val
+		if _, ok := hed[r.Hed]; ok && r.App != "" {
+			val = hed[r.Hed] + r.App + val
 		}
-		qry[i.QryKey] = val
+		hed[r.Hed] = val
+	}
+	return hed
+}
+
+
+func (m Mapping) query(arg map[string]string) map[string]string {
+	qry := map[string]string{}
+	for _, r := range m {
+		if r.Qry == "" {
+			continue
+		}
+		if r.Equ != "" && arg[r.Arg] != r.Equ {
+			continue
+		}
+		val := r.Val
+		if val == "" {
+			val = arg[r.Arg]
+		}
+		if _, ok := qry[r.Qry]; ok && r.App != "" {
+			val = qry[r.Qry] + r.App + val
+		}
+		qry[r.Qry] = val
 	}
 	return qry
 }
 
 
-func (r Request) Fetch(arg map[string]string) []byte {
-	log := "  " + r.Hos + "/" + r.Pat + "?"
-	for k, v := range r.Rul.Parameters(arg) {
-		log += k + "=" + v + "&"
-	}
-	fmt.Println(log[:len(log)-1])
 
-	par := url.Values{}
-	for k, v := range r.Rul.Parameters(arg) {
-		par.Add(k, v)
+func (r Request) Fetch(arg map[string]string) []byte {
+	des := r.Hos + "/" + r.Pat
+	fmt.Println("    " + des)
+	qry := url.Values{}
+	fmt.Println("      query")
+	for k, v := range r.Map.query(arg) {
+		fmt.Printf("        %s=%s\n", k, v)
+		qry.Add(k, v)
 	}
-	res, errRes := http.Get(r.Hos + r.Pat + par.Encode())
-	if errRes != nil {
+	if str := qry.Encode(); len(str) > 0 {
+		des += "?" + str
+	}
+	req, errReq := http.NewRequest("GET", des, nil)
+	if errReq != nil {
 		return nil
 	}
+	fmt.Println("      headers")
+	for k, v := range r.Map.headers(arg) {
+		fmt.Printf("        %s: %s\n", k, v)
+		req.Header.Set(k, v)
+	}
+	res, errRes := http.DefaultClient.Do(req)
+    	if errRes != nil {
+        	return nil
+    	}
 	defer res.Body.Close()
 	ret, errRet := ioutil.ReadAll(res.Body)
         if errRet != nil {
