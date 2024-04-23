@@ -44,8 +44,7 @@ func panicWrapper(fun func(http.ResponseWriter, *http.Request)) func(http.Respon
 func configureServer() *http.Server {
 	cfg := config.Load(".env")
 	api := fetcher.APIs {
-		vendors.BarAPI(cfg),
-		vendors.FooAPI(cfg),
+		vendors.YelpAPI(cfg),
 	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", panicWrapper(getRoot))
