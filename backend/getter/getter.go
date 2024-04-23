@@ -10,12 +10,12 @@ import (
 
 
 type Rule struct {
+	App string
 	Arg string
 	Equ string
 	Hed string
 	Qry string
 	Val string
-	App string
 }
 
 
@@ -24,8 +24,8 @@ type Mapping []Rule
 
 type Request struct {
 	Hos string
-	Pat string
 	Map Mapping
+	Pat string
 }
 
 
