@@ -8,30 +8,22 @@
 import SwiftUI
 
 
-struct Activity: Codable{
-    let name: String
-    let address: String
-    let hours: [String : String]
-    let phone: String
-    let website: String
-    let rating: Int
-    let price: String
-    let description: String
-}
-
-func roll() async throws -> Activity{
-    let apiURL = URL(string: "http://localhost:8080/")!
-    let (data, _) = try await URLSession.shared.data(from: apiURL)
-    let act = try JSONDecoder().decode(Activity.self, from: data)
-    return act
-}
-
-func roll_test(){
-    print("Hello")
-}
-
+//struct Activity: Codable{
+//    var Address: String
+//    var Name: String
+//    var image: String
+//    var phone: String
+//    var rating: String
+//    var website: String
+//}
 
 struct RollButtonView: View {
+    
+    @Binding var activity: Activity
+    @Binding var expense: String
+    @Binding var distance: String
+    var latitude: Double
+    var longitude: Double
     var body: some View {
         GeometryReader{ geometry in
             VStack{
@@ -39,7 +31,20 @@ struct RollButtonView: View {
                 HStack{
                     Spacer()
                     Button(action:{
-                        roll_test()
+                        Task{
+                            print("Expense from Roll: \(expense)")
+                            print("Distance from Roll: \(distance)")
+                            let url = URL(string: "http://10.1.11.155:8080/roll?distance=\(distance)&expense=\(expense)&latitude=\(latitude)&longitude=\(longitude)")!
+                            RequestController.shared.getJSON(url: url, completion: {(result: Result<Activity, Error>) -> Void in
+                                switch result{
+                                case .success(let jsonData):
+                                    activity = jsonData
+                                    print(jsonData)
+                                case .failure(let err):
+                                    print(err)
+                                }
+                            })
+                        }
                     }){
                         Text("Roll")
                     }
@@ -58,5 +63,5 @@ struct RollButtonView: View {
 }
 
 #Preview {
-    RollButtonView()
+    Text("hello")
 }

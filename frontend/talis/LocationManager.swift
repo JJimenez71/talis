@@ -11,7 +11,8 @@ import CoreLocation
 class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject{
     var locationManager = CLLocationManager()
     @Published var authorizationStatus: CLAuthorizationStatus?
-    
+    var latitude: Double?
+    var longitude: Double?
     override init(){
         super.init()
         locationManager.delegate = self
@@ -20,24 +21,23 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject{
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus{
         case .authorizedWhenInUse:
-            print("Authorized")
             authorizationStatus = .authorizedWhenInUse
+            latitude = manager.location?.coordinate.latitude
+            longitude = manager.location?.coordinate.longitude
             locationManager.requestLocation()
             break
         case .restricted:
-            print("Restricted or Denied")
             authorizationStatus = .restricted
+            latitude = 0.0
+            longitude = 0.0
             break
         case .denied:
-            print("Denied")
             authorizationStatus = .denied
         case .notDetermined:
-            print("Not determined")
             authorizationStatus = .notDetermined
             locationManager.requestWhenInUseAuthorization()
             break
         default:
-            print("broken")
             break
         }
     }
