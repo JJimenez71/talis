@@ -55,7 +55,7 @@ func (y Yelp) Fetch(arg map[string]string) []map[string]string {
 	if res == nil {
 		return []map[string]string{}
 	}
-	body := struct{
+	bod := struct{
 		Businesses []struct{
 			Alias string `json:"alias"`
 			Categories []struct{
@@ -97,12 +97,12 @@ func (y Yelp) Fetch(arg map[string]string) []map[string]string {
 		} `json:"region"`
 		Total int `json:"total"`
 	}{}
-	if err := json.Unmarshal(res, &body); err != nil {
+	if err := json.Unmarshal(res, &bod); err != nil {
 		fmt.Println("Error:", err)
 		return []map[string]string{}
 	}
 	ret := []map[string]string{}
-	for _, b := range body.Businesses {
+	for _, b := range bod.Businesses {
 		r := map[string]string{
 			"Name": b.Name,
 			"Address": strings.Join(b.Location.DisplayAddress, "\n"),
