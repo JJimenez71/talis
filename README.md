@@ -18,5 +18,5 @@ curl "127.0.0.1:8080/"
 ``` 
 ### ```GET``` /roll
 ```
-curl "127.0.0.1:8080/roll?distance=2&expense=1&latitude=40.759551&longitude=111.888196"
+curl "127.0.0.1:8080/roll?distance=2&expense=1&latitude=40.759551&longitude=-111.888196"
 ```

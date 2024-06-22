@@ -76,11 +76,9 @@ func (m Mapping) query(arg map[string]string) map[string]string {
 
 func (r Request) Fetch(arg map[string]string) []byte {
 	des := r.Hos + "/" + r.Pat
-	fmt.Println("    " + des)
+	fmt.Println("  " + des)
 	qry := url.Values{}
-	fmt.Println("      query")
 	for k, v := range r.Map.query(arg) {
-		fmt.Printf("        %s=%s\n", k, v)
 		qry.Add(k, v)
 	}
 	if str := qry.Encode(); len(str) > 0 {
@@ -88,20 +86,21 @@ func (r Request) Fetch(arg map[string]string) []byte {
 	}
 	req, errReq := http.NewRequest("GET", des, nil)
 	if errReq != nil {
+		fmt.Println("    " + errReq.Error())
 		return nil
 	}
-	fmt.Println("      headers")
 	for k, v := range r.Map.headers(arg) {
-		fmt.Printf("        %s: %s\n", k, v)
 		req.Header.Set(k, v)
 	}
 	res, errRes := http.DefaultClient.Do(req)
     	if errRes != nil {
+		fmt.Println("    " + errRes.Error())
         	return nil
     	}
 	defer res.Body.Close()
 	ret, errRet := ioutil.ReadAll(res.Body)
         if errRet != nil {
+		fmt.Println("    " + errRet.Error())
 		return nil
 	}
 	return ret
