@@ -10,12 +10,12 @@ import CoreLocation
 
 
 struct Activity: Codable{
-    var Address: String = "No Address"
-    var Name: String = "No Name"
-    var image: String = "No Image"
-    var phone: String = "No Phone"
-    var rating: String = "No Rating"
-    var website: String = "No Website"
+    var Address: String? = nil
+    var Name: String? = nil
+    var image: String? = nil
+    var phone: String? = nil
+    var rating: String? = nil
+    var website: String? = nil
 }
 
 
@@ -40,11 +40,12 @@ struct ContentView: View {
         }
         return 0.0
     }
+    
     var body: some View {
         Group {
             Spacer()
             VStack{
-                Text("lat: \(lat)")
+                ActivityInfoView(activity: activity)
                 RollButtonView(activity: $activity, expense: $expense, distance: $distance, latitude: lat, longitude: long)
                 HStack{
                     PriceButtonView(expense: $expense)
@@ -59,6 +60,6 @@ struct ContentView: View {
 }
 
 #Preview {
-//    ContentView()
-    Text("For the love of god please learn how to preview")
+    ContentView()
+//    Text("For the love of god please learn how to preview")
 }

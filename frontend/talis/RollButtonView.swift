@@ -34,7 +34,7 @@ struct RollButtonView: View {
                         Task{
                             print("Expense from Roll: \(expense)")
                             print("Distance from Roll: \(distance)")
-                            let url = URL(string: "http://10.1.11.155:8080/roll?distance=\(distance)&expense=\(expense)&latitude=\(latitude)&longitude=\(longitude)")!
+                            let url = URL(string: "http://10.1.11.174:8080/roll?distance=\(distance)&expense=\(expense)&latitude=\(latitude)&longitude=\(longitude)")!
                             RequestController.shared.getJSON(url: url, completion: {(result: Result<Activity, Error>) -> Void in
                                 switch result{
                                 case .success(let jsonData):
