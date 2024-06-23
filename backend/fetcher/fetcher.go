@@ -10,7 +10,7 @@ import (
 )
 
 type API interface {
-	Fetch(arg map[string]string) []map[string]string
+	Fetch(arg map[string]string) map[string]string
 }
 
 
@@ -57,14 +57,12 @@ func (a APIs) Fetch(res http.ResponseWriter, req *http.Request) {
 	}
 	fmt.Println("GET /roll:")
 	for i := 0; i < 4; i++ {
-		fmt.Printf("  Attempt %d:\n", i+1)
 		api := a[rand.Intn(len(a))]
 		ret := api.Fetch(arg)
-		if len(ret) == 0 {
+		if ret == nil {
 			continue
 		}
-		act := ret[rand.Intn(len(ret))]
-		if jsn, err := json.Marshal(act); err == nil {
+		if jsn, err := json.Marshal(ret); err == nil {
 			res.Write(jsn)
 			return
 		}
