@@ -33,11 +33,7 @@ struct DistanceButtonView: View {
            Text(options[currentIndex])
                 .frame(minWidth: 0, maxWidth: .infinity)
         }
-        .padding()
-        .font(.title)
-        .foregroundColor(.white)
-        .background(Color(red: 252/255, green:191/255, blue: 73/255))
-        .clipShape(Capsule())
+        .buttonStyle(TalisButtonStyle())
     }
 }
 

@@ -10,8 +10,8 @@ import CoreLocation
 
 
 struct Activity: Codable{
-    var Address: String? = nil
-    var Name: String? = nil
+    var address: String? = nil
+    var name: String? = nil
     var image: String? = nil
     var phone: String? = nil
     var rating: String? = nil
@@ -55,7 +55,7 @@ struct ContentView: View {
             .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.gray)
+        .background(Color(red: 239.0, green: 222.0, blue: 177.0))
     }
 }
 
@@ -63,3 +63,5 @@ struct ContentView: View {
     ContentView()
 //    Text("For the love of god please learn how to preview")
 }
+
+

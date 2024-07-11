@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A424810E2BD87E05006F8F8E /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A424810D2BD87E05006F8F8E /* RequestController.swift */; };
+		A43772D82C3E07E400A0A9CF /* ActivityNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43772D72C3E07E400A0A9CF /* ActivityNameView.swift */; };
+		A462189B2C38BA6000D1A878 /* TalisButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A462189A2C38BA6000D1A878 /* TalisButtonStyle.swift */; };
 		A462D4332B9E7D2C0085C7F0 /* talisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A462D4322B9E7D2C0085C7F0 /* talisApp.swift */; };
 		A462D4352B9E7D2C0085C7F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A462D4342B9E7D2C0085C7F0 /* ContentView.swift */; };
 		A462D4372B9E7D2D0085C7F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A462D4362B9E7D2D0085C7F0 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 /* Begin PBXFileReference section */
 		A424810C2BD868C1006F8F8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A424810D2BD87E05006F8F8E /* RequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
+		A43772D72C3E07E400A0A9CF /* ActivityNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNameView.swift; sourceTree = "<group>"; };
+		A462189A2C38BA6000D1A878 /* TalisButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalisButtonStyle.swift; sourceTree = "<group>"; };
 		A462D42F2B9E7D2C0085C7F0 /* talis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = talis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A462D4322B9E7D2C0085C7F0 /* talisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = talisApp.swift; sourceTree = "<group>"; };
 		A462D4342B9E7D2C0085C7F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,8 +55,6 @@
 		A462D4262B9E7D2C0085C7F0 = {
 			isa = PBXGroup;
 			children = (
-				A477033A2BF2FE370069734D /* ActioTitleView.swift */,
-				A47703382BEAC1D80069734D /* ActivityInfoView.swift */,
 				A4DC1F012BA68C96001FAE43 /* salt_lake_city_simulation.gpx */,
 				A462D4312B9E7D2C0085C7F0 /* talis */,
 				A462D4302B9E7D2C0085C7F0 /* Products */,
@@ -70,6 +72,8 @@
 		A462D4312B9E7D2C0085C7F0 /* talis */ = {
 			isa = PBXGroup;
 			children = (
+				A477033A2BF2FE370069734D /* ActioTitleView.swift */,
+				A47703382BEAC1D80069734D /* ActivityInfoView.swift */,
 				A47703342BDF24180069734D /* PriceButtonView.swift */,
 				A424810C2BD868C1006F8F8E /* Info.plist */,
 				A462D4322B9E7D2C0085C7F0 /* talisApp.swift */,
@@ -80,6 +84,8 @@
 				A462D4382B9E7D2D0085C7F0 /* Preview Content */,
 				A424810D2BD87E05006F8F8E /* RequestController.swift */,
 				A47703362BE59CE70069734D /* DistanceButtonView.swift */,
+				A462189A2C38BA6000D1A878 /* TalisButtonStyle.swift */,
+				A43772D72C3E07E400A0A9CF /* ActivityNameView.swift */,
 			);
 			path = talis;
 			sourceTree = "<group>";
@@ -166,7 +172,9 @@
 				A462D4332B9E7D2C0085C7F0 /* talisApp.swift in Sources */,
 				A462D4412B9E7D540085C7F0 /* LocationManager.swift in Sources */,
 				A424810E2BD87E05006F8F8E /* RequestController.swift in Sources */,
+				A43772D82C3E07E400A0A9CF /* ActivityNameView.swift in Sources */,
 				A47703352BDF24180069734D /* PriceButtonView.swift in Sources */,
+				A462189B2C38BA6000D1A878 /* TalisButtonStyle.swift in Sources */,
 				A47703392BEAC1D80069734D /* ActivityInfoView.swift in Sources */,
 				A47703372BE59CE70069734D /* DistanceButtonView.swift in Sources */,
 				A477033B2BF2FE370069734D /* ActioTitleView.swift in Sources */,
